@@ -1,0 +1,128 @@
+Q1:
+cat views the whole file
+more views content that fit the screen and can view more by pressing enter
+##
+cat: display the whole file
+more: display screen, screen. Navigation is by enter-key, space-key
+##
+Q2:
+pwd
+/home/ubuntu
+
+Q3:
+cd
+mkdir SAMPLE
+
+Q4:
+cd SAMPLE
+mkdir Hello
+
+Q5:
+mkdir /home/ubuntu/SAMPLE/Hello
+
+Q6:
+cd SAMPLE
+rmdir Hello
+
+Q7:
+cd
+mkdir -p SAMPLE/Hello
+
+Q8:
+add a dot at the begning of file name
+touch .file_name
+
+Q9:
+rm for removing files # you can remove directories using rm :) 
+rmdir for removing directories
+##
+rm: removes file and with option –r removes directories.
+rmdir: removes empty directories.
+##
+
+Q10:
+mkdir -p /home/ubuntu/dir/dir1
+cd /home/ubuntu/dir
+mkdir dir2
+cd dir1
+touch file1
+cd
+mkdir -p docs/ws-ITI
+####
+mkdir dir  docs 
+cd dir; mkdir dir1 dir2  // mkdir dir/dir1 dir1/dir2
+cd dir1; touch file1	//touch dir1/file  //touch dir/dir1/file
+cd; cd docs; touch WS-ITI	//touch ../../docs/SW-ITI //touch docs/SW-ITI
+###
+
+Q11:
+rm -rf /home/ubuntu/dir/dir1
+##
+rm -r dir1
+##
+Q12:
+rmdir -p /home/ubuntu/dir/dir2
+
+Q13:
+absolute:
+/home/ubuntu/Downloads/docs/ws-ITI
+relative
+ws-ITI
+###
+Absolute : /home/ubuntu/docs/SW-ITI
+Relative : ../ubuntu/docs/SW-ITI
+###
+Q14:
+cp /etc/passwd /home/ubuntu/my_passwd
+mv my_passwd old_passwd
+##
+cp /etc/passwd my_passwd.
+mv my_passwd old_passwd.
+##
+
+Q15:
+please read the questions well
+cd
+cd ~
+cd ..
+#####
+
+cd /home/guest
+cd ../../home/guest
+cd ~
+cd
+####
+
+Q16:
+ls usr/bin/w* #GREAT 
+
+Q17:
+head -n 4 /etc/passwd OR // head -4 /etc/passwd
+
+Q18:
+tail -n 7 /etc/passwd OR // tail -7 /etc/passwd
+
+Q19:
+cat >my_code.text
+michaelheshamiti
+grep -r "michaelheshamiti"
+my_code.text:michaelheshamiti
+#Very Good Michael
+
+cd
+touch my_code.text
+nano  my_code.text
+
+mohamed_ITI
+
+grep -r "mohamed_ITI"
+
+cd Desktop
+
+grep -R "mohamed_ITI"
+
+
+
+
+
+
