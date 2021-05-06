@@ -24,7 +24,7 @@ class StatePublisher(Node):
         # robot state
         tilt = 0.
         swivel = 0.
-        angle = -pi/2
+        angle = 0.
         height = 0.
         flag = 0
         # message declarations
@@ -47,21 +47,21 @@ class StatePublisher(Node):
                 # (moving in a circle with radius=2)
                 lidar_trans.header.stamp = now.to_msg()
                 lidar_trans.transform.rotation = \
-                    euler_to_quaternion(0, angle + pi/2, 0) # roll,pitch,yaw
+                    euler_to_quaternion(0, angle, 0) # roll,pitch,yaw
 
                 # send the joint state and transform
                 self.joint_pub.publish(joint_state)
                 self.broadcaster.sendTransform(lidar_trans)
 
                 # Create new robot state
-                if angle < -30 * (pi/180) and flag == 0:
-                    angle += degree/4
-                elif angle > -35 * (pi/180):
-                    angle -= degree/4
+                if angle < 30 * (pi/180) and flag == 0:
+                    angle += degree
+                elif angle > -30 * (pi/180):
+                    angle -= degree
                     flag = 1
-                print(30 * (pi/180))
-                print(angle)
-
+                elif angle < -30 * (pi/180):
+                    flag = 0
+                
 		
                 # This will adjust as needed per iteration
                 loop_rate.sleep()
