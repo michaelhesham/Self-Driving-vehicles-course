@@ -31,7 +31,7 @@ class my_server(Node):
             self.service_client(float(x), float(y), 0.0, 'new_one')
           
     def kill_call(self):
-        if self.goal == 1:
+        if self.goal == 1 and self.kill == 0:
             self.kill_client('new_one')
           
 
