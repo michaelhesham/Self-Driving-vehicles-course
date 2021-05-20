@@ -51,7 +51,7 @@ class MyNode(Node):
     def imu_call(self):
         msg=Imu()
         msg.header.frame_id = "zed2_imu_link"
-        #msg.header.stamp = .time()
+        msg.header.stamp = Node.get_clock(self).now().to_msg()
         
         if angZ[self.count] < 0.3:
             yaw = 0.00001
@@ -70,7 +70,7 @@ class MyNode(Node):
         msg.angular_velocity.z = angZ[self.count]
         msg.angular_velocity_covariance = [0.00001, 0.0, 0.0, 0.0, 0.00001, 0.0, 0.0, 0.0, z]
 
-        msg.orientation = self.quaternion_from_euler(0,0,yaw_degree[self.count])    
+        msg.orientation = self.quaternion_from_euler(0,0,yaw_degree[self.count]*(np.pi/180))    
         msg.orientation_covariance = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, yaw]
 
         
