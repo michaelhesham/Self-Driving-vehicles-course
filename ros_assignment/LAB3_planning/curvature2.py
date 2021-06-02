@@ -19,20 +19,20 @@ class MyNode(Node):
         self.get_logger().info(str(msg.poses[0].pose.position))
         self.plan_len = len(msg.poses)
         self.counter = 0
-  
-        self.x1 = msg.poses[self.counter].pose.position.x
-        self.y1 = msg.poses[self.counter].pose.position.y
-        self.counter += 10
-        self.x2 = msg.poses[self.counter].pose.position.x
-        self.y2 = msg.poses[self.counter].pose.position.y
-        self.counter += 10
-        self.x3 = msg.poses[self.counter].pose.position.x
-        self.y3 = msg.poses[self.counter].pose.position.y
-        self.curvature = self.menger_curvature(self.x1, self.y1, self.x2, self.y2, self.x3, self.y3)
-        if float(self.curvature) < 1:
-        	self.pub_call("The path is straight ")
-        else:
-               self.pub_call(f"The robot is turning with a curvature {self.curvature}")
+  	if plan_len > 30:
+        	self.x1 = msg.poses[self.counter].pose.position.x
+       	self.y1 = msg.poses[self.counter].pose.position.y
+        	self.counter += 10
+        	self.x2 = msg.poses[self.counter].pose.position.x
+        	self.y2 = msg.poses[self.counter].pose.position.y
+        	self.counter += 10
+        	self.x3 = msg.poses[self.counter].pose.position.x
+        	self.y3 = msg.poses[self.counter].pose.position.y
+        	self.curvature = self.menger_curvature(self.x1, self.y1, self.x2, self.y2, self.x3, self.y3)
+        	if float(self.curvature) < 1:
+        		self.pub_call("The path is straight ")
+        	else:
+               	self.pub_call(f"The robot is turning with a curvature {self.curvature}")
             
     def pub_call(self,msg_data=""):
         msg=String()
