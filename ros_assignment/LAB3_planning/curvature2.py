@@ -19,7 +19,7 @@ class MyNode(Node):
         self.get_logger().info(str(msg.poses[0].pose.position))
         self.plan_len = len(msg.poses)
         self.counter = 0
-  	if plan_len > 30:
+  	if self.plan_len > 30:
         	self.x1 = msg.poses[self.counter].pose.position.x
        	self.y1 = msg.poses[self.counter].pose.position.y
         	self.counter += 10
