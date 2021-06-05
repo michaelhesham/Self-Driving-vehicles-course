@@ -10,7 +10,7 @@ class MyNode(Node):
     front_scan = []
     free_path = 0
     cmd_vel_msg = Twist()
-    flag = 0
+
     def __init__(self):
         super().__init__("publisher")
         self.get_logger().info("Node is started now")
@@ -35,27 +35,24 @@ class MyNode(Node):
 
     def key_cmd_vel_callback(self,msg):
         self.cmd_vel_msg = msg
-        self.flag = 1
 
     def cmd_vel_pub(self):
         msg=Twist()
 
         self.get_logger().info(str(msg))
-        if self.flag:
-            if self.free_path:
-                msg = self.cmd_vel_msg
-                self.get_logger().info("free path")
+        if self.free_path:
+            msg = self.cmd_vel_msg
+            self.get_logger().info("free path")
 
-            else:
-                msg = self.cmd_vel_msg
-                if msg.linear.x > 0:
-                    msg.linear.x = 0.0
+        else:
+            msg = self.cmd_vel_msg
+            if msg.linear.x > 0:
+                msg.linear.x = 0.0
 
-                self.get_logger().info("no free path")
+            self.get_logger().info("no free path")
 
         self.obj_pub.publish(msg)
-        self.flag = 0
-
+        
 def main(args=None):
     rclpy.init(args=args)
     node=MyNode()
