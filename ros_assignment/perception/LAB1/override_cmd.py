@@ -8,7 +8,9 @@ from geometry_msgs.msg import Twist
 
 class MyNode(Node):
     front_scan = []
-    free_path = 0
+    back_scan = []
+    free_path_fwd = 0
+    free_path_bwd = 0
     cmd_vel_msg = Twist()
 
     def __init__(self):
@@ -23,12 +25,21 @@ class MyNode(Node):
     def scan_callback(self,msg):
         self.front_scan = msg.ranges[0:45]
         self.front_scan.extend(msg.ranges[315:360])
+
+        self.back_scan = msg.ranges[135:225]
+
         self.obstacle = min(self.front_scan)
+        self.obstacle_back = min(self.back_scan)
 
         if self.obstacle > 0.45:
-            self.free_path = 1
+            self.free_path_fwd = 1
         else:
-            self.free_path = 0
+            self.free_path_fwd = 0
+
+        if self.obstacle_back > 0.45:
+            self.free_path_bwd = 1
+        else:
+            self.free_path_bwd = 0
 
         self.get_logger().info("obs: "+str(self.obstacle))
 
@@ -40,15 +51,22 @@ class MyNode(Node):
         msg=Twist()
 
         self.get_logger().info(str(msg))
-        if self.free_path:
+        if self.free_path_fwd and self.free_path_bwd:
             msg = self.cmd_vel_msg
-            self.get_logger().info("free path")
-
-        else:
+        
+        elif self.free_path_fwd==0 and self.free_path_bwd:
             msg = self.cmd_vel_msg
             if msg.linear.x > 0:
                 msg.linear.x = 0.0
-
+        
+        elif self.free_path_fwd and self.free_path_bwd==0:
+            msg = self.cmd_vel_msg
+            if msg.linear.x < 0:
+                msg.linear.x = 0.0
+        
+        else:
+            msg = self.cmd_vel_msg
+            msg.linear.x = 0.0
             self.get_logger().info("no free path")
 
         self.obj_pub.publish(msg)
